@@ -177,29 +177,32 @@ export function ReviewPage() {
     saveDraft();
 
     // Submit to Google Sheets via Web App URL
-    // Set this URL in your .env file or Vercel Environment Variables: VITE_GOOGLE_SHEET_WEBAPP
     const webAppUrl = import.meta.env.VITE_GOOGLE_SHEET_WEBAPP;
+    const isPlaceholder = webAppUrl === 'https://api.example.com';
     
-    if (webAppUrl) {
+    console.log('--- Melhek Discovery Submission ---');
+    console.log('Submission ID:', id);
+    
+    if (webAppUrl && !isPlaceholder) {
+      console.log('Target URL found. Sending payload...');
       try {
         await fetch(webAppUrl, {
           method: 'POST',
           mode: 'no-cors',
-          // CRITICAL: Must use text/plain — application/json triggers a CORS
-          // preflight OPTIONS request that Google Apps Script cannot respond to,
-          // silently killing the POST. text/plain is a "simple request" that
-          // goes straight through. The Apps Script body is still valid JSON.
           headers: {
             'Content-Type': 'text/plain',
           },
           body: JSON.stringify({ id, ...formData }),
         });
-        // no-cors mode means we can't read the response, but it succeeds silently
+        console.log('Payload dispatched successfully (no-cors).');
       } catch (error) {
-        console.error('Error submitting to Google Sheets:', error);
+        console.error('CRITICAL: Submission failed:', error);
       }
     } else {
-      // Fallback artificial delay if no Google Sheet is connected yet
+      console.warn('⚠️ WARNING: No Google Sheet URL found or using placeholder.');
+      console.log('Current VITE_GOOGLE_SHEET_WEBAPP:', webAppUrl);
+      // Fallback artificial delay so the user experience isn't broken, 
+      // but developers can see the warning in console.
       await new Promise((r) => setTimeout(r, 1800));
     }
 
