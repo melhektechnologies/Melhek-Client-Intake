@@ -52,7 +52,7 @@ export function Step1CompanyInfo() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <FormInput
             label="Phone Number" name="phone" value={ci.phone}
-            onChange={upd('phone')} placeholder="+251 9XX XXX XXX"
+            onChange={upd('phone')} placeholder="+251 911 00 00 00"
             type="tel" required error={errors['companyInfo.phone']}
           />
           <FormInput
@@ -64,7 +64,7 @@ export function Step1CompanyInfo() {
 
         <FormInput
           label="Physical Address" name="address" value={ci.address}
-          onChange={upd('address')} placeholder="City, Country"
+          onChange={upd('address')} placeholder="Addis Ababa, Ethiopia"
           optional
         />
 

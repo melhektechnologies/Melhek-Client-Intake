@@ -22,9 +22,10 @@ const EMAIL_OPTIONS = [
 ];
 
 const INTEGRATIONS = [
-  'Google Analytics', 'Facebook Pixel', 'WhatsApp Business', 'Mailchimp',
-  'HubSpot', 'Salesforce', 'Stripe', 'PayPal', 'TeleBirr', 'QuickBooks',
-  'Xero', 'Slack', 'Zapier', 'Twilio SMS', 'Google Maps', 'Other',
+  'Telebirr', 'Chapa', 'CBE Birr', 'Amole',
+  'WhatsApp Business', 'Google Maps', 'Salesforce', 'HubSpot', 
+  'Shopify', 'Mailchimp', 'Stripe', 'PayPal', 
+  'QuickBooks', 'Slack', 'Custom API', 'Other',
 ];
 
 export function Step8TechnicalRequirements() {

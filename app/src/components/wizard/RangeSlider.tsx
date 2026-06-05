@@ -1,4 +1,4 @@
-const BUDGET_OPTIONS = ['Under $5K', '$5K–$15K', '$15K–$50K', '$50K–$100K', '$100K+'];
+const BUDGET_OPTIONS = ['Under 100k ETB', '100k–500k ETB', '500k–1.5M ETB', '1.5M–5M ETB', '5M+ ETB'];
 
 interface RangeSliderProps {
   label: string;
