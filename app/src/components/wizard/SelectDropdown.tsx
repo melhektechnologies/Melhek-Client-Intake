@@ -11,6 +11,7 @@ interface SelectDropdownProps {
   placeholder?: string;
   required?: boolean;
   error?: string;
+  optional?: boolean;
 }
 
 export function SelectDropdown({

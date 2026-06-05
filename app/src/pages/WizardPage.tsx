@@ -63,7 +63,7 @@ export function WizardPage() {
       // Shake the panel
       if (contentRef.current) {
         gsap.to(contentRef.current, {
-          x: [-6, 6, -5, 5, -3, 3, 0],
+          x: [-6, 6, -5, 5, -3, 3, 0] as any,
           duration: 0.45, ease: 'none', clearProps: 'x',
         });
       }

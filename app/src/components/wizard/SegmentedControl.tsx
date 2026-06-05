@@ -10,7 +10,6 @@ interface SegmentedControlProps {
 }
 
 export function SegmentedControl({ label, value, onChange, options, required = false, error }: SegmentedControlProps) {
-  const selectedIndex = options.indexOf(value);
 
   return (
     <div className="w-full">

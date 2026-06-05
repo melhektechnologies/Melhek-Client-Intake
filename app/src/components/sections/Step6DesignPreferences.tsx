@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useFormStore } from '@/store/formStore';
 import { MultiSelectCard } from '@/components/wizard/MultiSelectCard';
 import { FileUploadZone } from '@/components/wizard/FileUploadZone';
@@ -20,7 +19,7 @@ const DESIGN_STYLES = [
 ];
 
 export function Step6DesignPreferences() {
-  const { formData, updateField, updateSection, errors } = useFormStore();
+  const { formData, updateField, errors } = useFormStore();
   const dp = formData.designPreferences;
 
   const toggleStyle = (id: string) => {

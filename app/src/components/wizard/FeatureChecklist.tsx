@@ -10,7 +10,7 @@ interface FeatureChecklistProps {
   onToggle: () => void;
 }
 
-export function FeatureChecklist({ id, label, description, checked, onToggle }: FeatureChecklistProps) {
+export function FeatureChecklist({ label, description, checked, onToggle }: FeatureChecklistProps) {
   const checkRef = useRef<HTMLDivElement>(null);
   const mounted = useRef(false);
 

@@ -75,7 +75,7 @@ export function RangeSlider({ label, value, onChange, required = false, error }:
 
         {/* Tick Labels */}
         <div className="flex justify-between">
-          {BUDGET_OPTIONS.map((opt, i) => {
+          {BUDGET_OPTIONS.map((opt) => {
             const active = value === opt;
             return (
               <button
