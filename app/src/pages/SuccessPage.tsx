@@ -255,9 +255,9 @@ export function SuccessPage() {
           style={{ fontSize: 13, color: 'var(--text-muted)' }}>
           <Mail size={14} style={{ color: 'var(--electric-dim)' }} />
           Direct:{' '}
-          <a href="mailto:info@melhek.com"
+          <a href="mailto:melhektechnologies@gmail.com"
             style={{ color: 'var(--electric)', fontWeight: 600 }}>
-            info@melhek.com
+            melhektechnologies@gmail.com
           </a>
         </div>
       </div>

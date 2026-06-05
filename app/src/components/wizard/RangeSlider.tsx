@@ -40,7 +40,7 @@ export function RangeSlider({ label, value, onChange, required = false, error }:
           </span>
           {value && (
             <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
-              INVESTMENT RANGE
+              INVESTMENT RANGE (BIRR)
             </p>
           )}
         </div>
