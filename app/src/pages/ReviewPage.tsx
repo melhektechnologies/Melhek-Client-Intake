@@ -175,7 +175,34 @@ export function ReviewPage() {
     const id = `MT-${year}-${rand}`;
     setSubmissionId(id);
     saveDraft();
-    await new Promise((r) => setTimeout(r, 1800));
+
+    // Submit to Google Sheets via Web App URL
+    // Set this URL in your .env file or Vercel Environment Variables: VITE_GOOGLE_SHEET_WEBAPP
+    const webAppUrl = import.meta.env.VITE_GOOGLE_SHEET_WEBAPP;
+    
+    if (webAppUrl) {
+      try {
+        await fetch(webAppUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          // CRITICAL: Must use text/plain — application/json triggers a CORS
+          // preflight OPTIONS request that Google Apps Script cannot respond to,
+          // silently killing the POST. text/plain is a "simple request" that
+          // goes straight through. The Apps Script body is still valid JSON.
+          headers: {
+            'Content-Type': 'text/plain',
+          },
+          body: JSON.stringify({ id, ...formData }),
+        });
+        // no-cors mode means we can't read the response, but it succeeds silently
+      } catch (error) {
+        console.error('Error submitting to Google Sheets:', error);
+      }
+    } else {
+      // Fallback artificial delay if no Google Sheet is connected yet
+      await new Promise((r) => setTimeout(r, 1800));
+    }
+
     setSubmitting(false);
     navigate(`/success?id=${id}`);
   };
