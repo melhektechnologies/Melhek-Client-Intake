@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ProgressNav } from '@/components/wizard/ProgressNav';
 import { WizardButtons } from '@/components/wizard/WizardButtons';
@@ -24,6 +24,7 @@ const STEPS = [
 export function WizardPage() {
   const { stepNumber } = useParams();
   const navigate = useNavigate();
+  const [direction, setDirection] = useState(1);
   const { validateStep, clearErrors } = useFormStore();
   const contentRef = useRef<HTMLDivElement>(null);
   const step = parseInt(stepNumber || '1', 10);
@@ -38,13 +39,26 @@ export function WizardPage() {
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (contentRef.current) {
       gsap.fromTo(contentRef.current,
-        { opacity: 0, x: 32 },
-        { opacity: 1, x: 0, duration: 0.35, ease: 'power2.out' }
-      );
+      { 
+        opacity: 0, 
+        x: direction > 0 ? 30 : -30,
+        scale: 0.985,
+        filter: 'blur(4px)'
+      },
+      { 
+        opacity: 1, 
+        x: 0, 
+        scale: 1,
+        filter: 'blur(0px)',
+        duration: 0.5, 
+        ease: 'power3.out' 
+      }
+    );
     }
-  }, [step]);
+  }, [step, direction]);
 
   const exit = (dir: 'forward' | 'back', cb: () => void) => {
+    setDirection(dir === 'forward' ? 1 : -1);
     if (contentRef.current) {
       gsap.to(contentRef.current, {
         opacity: 0, x: dir === 'forward' ? -32 : 32,
