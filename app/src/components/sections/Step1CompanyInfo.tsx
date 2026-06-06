@@ -3,10 +3,12 @@ import { FormInput } from '@/components/wizard/FormInput';
 import { SelectDropdown } from '@/components/wizard/SelectDropdown';
 
 const INDUSTRIES = [
-  'Technology', 'Healthcare', 'Finance & Banking', 'Retail & eCommerce',
-  'Hospitality & Tourism', 'Manufacturing', 'Education', 'Real Estate',
-  'Food & Beverage', 'Logistics & Transport', 'Government & NGO',
-  'Media & Entertainment', 'Agriculture', 'Construction', 'Other',
+  'Technology', 'Marketing & Advertising', 'Finance & Banking', 
+  'Retail & eCommerce', 'Healthcare', 'Hospitality & Tourism', 
+  'Professional Services (Legal, Consulting)', 'Manufacturing', 
+  'Education', 'Real Estate', 'Logistics & Transport', 
+  'Government & NGO', 'Agriculture', 'Construction', 
+  'Energy & Utilities', 'Media & Entertainment', 'Other',
 ];
 
 export function Step1CompanyInfo() {
