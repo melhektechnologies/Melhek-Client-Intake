@@ -180,9 +180,19 @@ export function ReviewPage() {
     const webAppUrl = import.meta.env.VITE_GOOGLE_SHEET_WEBAPP;
     const isPlaceholder = webAppUrl === 'https://api.example.com';
     
-    console.log('--- Melhek Discovery Submission ---');
-    console.log('Submission ID:', id);
-    
+    // Prepare file lists (metadata only) for the spreadsheet
+    const logoFileNames = formData.designPreferences.logoFiles?.map((f: any) => f.name).join(', ') || 'None';
+    const brandGuideNames = formData.designPreferences.brandGuidelines?.map((f: any) => f.name).join(', ') || 'None';
+
+    const payload = { 
+      id, 
+      ...formData,
+      fileMetadata: {
+        logos: logoFileNames,
+        brandGuides: brandGuideNames
+      }
+    };
+
     if (webAppUrl && !isPlaceholder) {
       console.log('Target URL found. Sending payload...');
       try {
@@ -192,7 +202,7 @@ export function ReviewPage() {
           headers: {
             'Content-Type': 'text/plain',
           },
-          body: JSON.stringify({ id, ...formData }),
+          body: JSON.stringify(payload),
         });
         console.log('Payload dispatched successfully (no-cors).');
       } catch (error) {
