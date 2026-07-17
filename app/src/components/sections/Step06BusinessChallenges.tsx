@@ -90,7 +90,7 @@ export function Step06BusinessChallenges() {
       </div>
 
       <div className="space-y-7">
-        {CHALLENGE_QUESTIONS.map((q, idx) => (
+        {CHALLENGE_QUESTIONS.map((q) => (
           <div key={q.key} className="flex items-start gap-4">
             <div className="flex-shrink-0 flex items-center justify-center rounded-xl mt-1"
               style={{

@@ -1,5 +1,4 @@
 import { useFormStore } from '@/store/formStore';
-import { FormInput } from '@/components/wizard/FormInput';
 import { Monitor, FileSpreadsheet, Cloud, Database, Cpu } from 'lucide-react';
 
 const EXPORT_CAPABILITIES = [
@@ -17,7 +16,7 @@ const CLOUD_OPTIONS = [
 ];
 
 export function Step05CurrentSoftware() {
-  const { formData, updateField, updateSection } = useFormStore();
+  const { formData, updateField } = useFormStore();
   const d = formData.currentSoftware;
   const f = <K extends keyof typeof d>(k: K, v: typeof d[K]) => updateField('currentSoftware', k, v);
 

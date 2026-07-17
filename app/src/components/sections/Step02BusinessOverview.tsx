@@ -1,7 +1,5 @@
 import { useFormStore } from '@/store/formStore';
-import { FormInput } from '@/components/wizard/FormInput';
 import { TextareaField } from '@/components/wizard/TextareaField';
-import { SelectDropdown } from '@/components/wizard/SelectDropdown';
 import { BarChart3, Users, ShoppingCart, TrendingUp } from 'lucide-react';
 
 const SALES_RANGES = [
