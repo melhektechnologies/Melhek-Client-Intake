@@ -407,3 +407,14 @@ input[type=range]::-webkit-slider-thumb:hover {
 input[type=checkbox] {
   accent-color: var(--electric);
 }
+
+/* ── Consulting Question Block ── */
+.consulting-q {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 24px;
+}
+.consulting-q:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+

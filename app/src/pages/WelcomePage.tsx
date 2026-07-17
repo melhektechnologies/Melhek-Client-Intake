@@ -5,8 +5,9 @@ import gsap from 'gsap';
 import { useFormStore } from '@/store/formStore';
 
 const SERVICES = [
-  'Website Development', 'AI Systems', 'Business Automation',
-  'Hotel Technology', 'ERP & CRM', 'Mobile Apps',
+  'Retail & Distribution', 'Manufacturing', 'Food & Beverage',
+  'Healthcare', 'Wholesale', 'Hospitality',
+  'Professional Services', 'Multi-branch Operations',
 ];
 
 export function WelcomePage() {
@@ -168,7 +169,7 @@ export function WelcomePage() {
 
         {/* Badge */}
         <div data-anim="badge" className="mb-6">
-          <span className="step-badge">Client Discovery Wizard</span>
+          <span className="step-badge">Business Discovery & Requirements Assessment</span>
         </div>
 
         {/* Title */}
@@ -183,7 +184,7 @@ export function WelcomePage() {
             color: 'var(--ice)',
           }}
         >
-          Build Your{' '}
+          Understand Your{' '}
           <span
             style={{
               background: 'linear-gradient(135deg, var(--electric-dim) 0%, var(--electric-bright) 100%)',
@@ -192,9 +193,20 @@ export function WelcomePage() {
               backgroundClip: 'text',
             }}
           >
-            Digital Future
+            Business
           </span>
-          {' '}With Melhek
+          {'. '}Engineer the{' '}
+          <span
+            style={{
+              background: 'linear-gradient(135deg, var(--electric-dim) 0%, var(--electric-bright) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            Right Solution
+          </span>
+          {'.'}
         </h1>
 
         {/* Subtitle */}
@@ -204,12 +216,12 @@ export function WelcomePage() {
             fontSize: 17,
             color: 'var(--text-secondary)',
             lineHeight: 1.7,
-            maxWidth: 560,
+            maxWidth: 580,
             margin: '20px auto 0',
           }}
         >
-          Complete this guided discovery to help us deeply understand your vision.
-          Our engineers will use your responses to engineer the perfect solution.
+          Complete this guided discovery assessment to help us deeply analyze your operations.
+          Our expert consultants and engineers will use your answers to structure the perfect digital workflow recommendation.
         </p>
 
         {/* Service chips */}
@@ -233,8 +245,8 @@ export function WelcomePage() {
         {/* Trust indicators */}
         <div data-anim="trust" className="flex flex-wrap gap-5 justify-center mt-10">
           {[
-            { icon: Shield, text: 'Secure & Private' },
-            { icon: Clock, text: '8–12 minutes' },
+            { icon: Shield, text: 'Structured Consulting Process' },
+            { icon: Clock, text: '10–15 minutes' },
             { icon: RefreshCw, text: 'Auto-saves progress' },
           ].map(({ icon: Icon, text }) => (
             <div key={text} className="flex items-center gap-2">

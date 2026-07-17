@@ -1,177 +1,246 @@
-export interface CompanyInfo {
-  companyName: string;
+// ─── Section 1: Business Information ─────────────────────────────────────────
+export interface BusinessInfo {
+  businessName: string;
   industry: string;
+  businessType: string;
+  branches: string;
+  address: string;
+  website: string;
+  facebook: string;
+  instagram: string;
   contactPerson: string;
   position: string;
   phone: string;
   email: string;
-  address: string;
-  website: string;
-  socialMedia: string;
 }
 
+// ─── Section 2: Business Overview ────────────────────────────────────────────
 export interface BusinessOverview {
-  description: string;
+  yearsInOperation: string;
+  totalEmployees: string;
+  cashiers: string;
+  managers: string;
+  storekeepers: string;
+  dailyCustomers: string;
+  monthlySalesRange: string;
   productsServices: string;
-  targetCustomers: string;
-  geographicMarket: string;
-  competitors: string;
-  goals: string;
+  businessGoals: string;
 }
 
-export interface ProjectType {
-  selected: string[];
-  otherDescription: string;
+// ─── Section 3: Current Workflow ──────────────────────────────────────────────
+export interface CurrentWorkflow {
+  purchasing: string;
+  stockArrival: string;
+  stockRecording: string;
+  stockUpdates: string;
+  salesProcess: string;
+  receipts: string;
+  purchaseApprovals: string;
+  returns: string;
+  damagedItems: string;
+  inventoryCorrections: string;
+  monthEndCounting: string;
+  yearEndCounting: string;
 }
 
+// ─── Section 4: Inventory ─────────────────────────────────────────────────────
+export interface Inventory {
+  approximateProducts: string;
+  categories: string;
+  unitsOfMeasurement: string;
+  barcodes: string;
+  supplierCodes: string;
+  warehouseLocations: string;
+  multipleBranches: string;
+  weeklyStockArrivals: string;
+  fastMovingProducts: string;
+  slowMovingProducts: string;
+  difficultToTrack: string;
+}
+
+// ─── Section 5: Current Software ──────────────────────────────────────────────
+export interface CurrentSoftware {
+  posSystem: string;
+  inventorySoftware: string;
+  accountingSoftware: string;
+  usesExcel: boolean;
+  paperRecords: boolean;
+  cloudStorage: string;
+  exportCapabilities: string[];
+  canPosIntegrate: string;
+}
+
+// ─── Section 6: Business Challenges ──────────────────────────────────────────
+export interface BusinessChallenges {
+  timeWaste: string;
+  inventoryChallenge: string;
+  salesChallenge: string;
+  employeeMistakes: string;
+  recurringProblem: string;
+  moneyLoss: string;
+  timeLoss: string;
+  frustration: string;
+  customerImpact: string;
+}
+
+// ─── Section 7: Reporting & Decision Making ──────────────────────────────────
+export interface Reporting {
+  selectedReports: string[];
+  morningInformation: string;
+}
+
+// ─── Section 8: Security & User Roles ────────────────────────────────────────
+export interface SecurityRoles {
+  userRoles: string[];
+  samePermissions: string;
+  stockAdjustmentApprover: string;
+  priceChangeApprover: string;
+  deleteRecordsApprover: string;
+}
+
+// ─── Section 9: Project Goals ─────────────────────────────────────────────────
 export interface ProjectGoals {
-  why: string;
-  problem: string;
-  success: string;
+  whyNow: string;
+  successDefinition: string;
+  topImprovements: string;
+  manualWorkToEliminate: string;
+  ifNothingChanges: string;
 }
 
-export interface RequiredFeatures {
-  selected: string[];
-  customFeatures: string;
-}
-
-export interface DesignPreferences {
-  logoFiles: File[];
-  brandGuidelines: File[];
-  colors: string[];
-  exampleWebsites: string;
-  style: string[];
-}
-
-export interface ContentItem {
-  checked: boolean;
-  needsHelp: boolean;
-  details: string;
-}
-
-export interface ContentAvailability {
-  logo: ContentItem;
-  images: ContentItem;
-  videos: ContentItem;
-  productInfo: ContentItem;
-  serviceInfo: ContentItem;
-  companyProfile: ContentItem;
-  testimonials: ContentItem;
-  legalContent: ContentItem;
-  additionalNotes: string;
-}
-
-export interface TechnicalRequirements {
-  domain: string;
-  domainName: string;
-  hosting: string;
-  hostingProvider: string;
-  email: string;
-  integrations: string[];
-  customIntegration: string;
-}
-
-export interface TimelineBudget {
-  launchDate: string;
+// ─── Section 10: Project Qualification ───────────────────────────────────────
+export interface ProjectQualification {
   urgency: string;
-  budgetRange: string;
-  budgetContext: string;
+  decisionMaker: string;
+  budgetAllocated: string;
+  investmentRange: string;
+  spokenToVendor: string;
+  vendorProposal: string;
 }
 
-export interface StrategicIntelligence {
-  challenges: string;
-  manualProcesses: string;
-  automate: string;
-  growth: string;
-  bottlenecks: string;
+// ─── Section 11: Additional Notes ────────────────────────────────────────────
+export interface AdditionalNotes {
+  notes: string;
 }
 
+// ─── Unified FormData ─────────────────────────────────────────────────────────
 export interface FormData {
-  companyInfo: CompanyInfo;
+  businessInfo: BusinessInfo;
   businessOverview: BusinessOverview;
-  projectType: ProjectType;
+  currentWorkflow: CurrentWorkflow;
+  inventory: Inventory;
+  currentSoftware: CurrentSoftware;
+  businessChallenges: BusinessChallenges;
+  reporting: Reporting;
+  securityRoles: SecurityRoles;
   projectGoals: ProjectGoals;
-  requiredFeatures: RequiredFeatures;
-  designPreferences: DesignPreferences;
-  contentAvailability: ContentAvailability;
-  technicalRequirements: TechnicalRequirements;
-  timelineBudget: TimelineBudget;
-  strategicIntelligence: StrategicIntelligence;
+  projectQualification: ProjectQualification;
+  additionalNotes: AdditionalNotes;
 }
 
+export type FormSection = keyof FormData;
+
+// ─── Default Values ────────────────────────────────────────────────────────────
 export const defaultFormData: FormData = {
-  companyInfo: {
-    companyName: '',
+  businessInfo: {
+    businessName: '',
     industry: '',
+    businessType: '',
+    branches: '1',
+    address: '',
+    website: '',
+    facebook: '',
+    instagram: '',
     contactPerson: '',
     position: '',
     phone: '',
     email: '',
-    address: '',
-    website: '',
-    socialMedia: '',
   },
   businessOverview: {
-    description: '',
+    yearsInOperation: '',
+    totalEmployees: '',
+    cashiers: '',
+    managers: '',
+    storekeepers: '',
+    dailyCustomers: '',
+    monthlySalesRange: '',
     productsServices: '',
-    targetCustomers: '',
-    geographicMarket: '',
-    competitors: '',
-    goals: '',
+    businessGoals: '',
   },
-  projectType: {
-    selected: [],
-    otherDescription: '',
+  currentWorkflow: {
+    purchasing: '',
+    stockArrival: '',
+    stockRecording: '',
+    stockUpdates: '',
+    salesProcess: '',
+    receipts: '',
+    purchaseApprovals: '',
+    returns: '',
+    damagedItems: '',
+    inventoryCorrections: '',
+    monthEndCounting: '',
+    yearEndCounting: '',
+  },
+  inventory: {
+    approximateProducts: '',
+    categories: '',
+    unitsOfMeasurement: '',
+    barcodes: '',
+    supplierCodes: '',
+    warehouseLocations: '',
+    multipleBranches: '',
+    weeklyStockArrivals: '',
+    fastMovingProducts: '',
+    slowMovingProducts: '',
+    difficultToTrack: '',
+  },
+  currentSoftware: {
+    posSystem: '',
+    inventorySoftware: '',
+    accountingSoftware: '',
+    usesExcel: false,
+    paperRecords: false,
+    cloudStorage: '',
+    exportCapabilities: [],
+    canPosIntegrate: '',
+  },
+  businessChallenges: {
+    timeWaste: '',
+    inventoryChallenge: '',
+    salesChallenge: '',
+    employeeMistakes: '',
+    recurringProblem: '',
+    moneyLoss: '',
+    timeLoss: '',
+    frustration: '',
+    customerImpact: '',
+  },
+  reporting: {
+    selectedReports: [],
+    morningInformation: '',
+  },
+  securityRoles: {
+    userRoles: [],
+    samePermissions: '',
+    stockAdjustmentApprover: '',
+    priceChangeApprover: '',
+    deleteRecordsApprover: '',
   },
   projectGoals: {
-    why: '',
-    problem: '',
-    success: '',
+    whyNow: '',
+    successDefinition: '',
+    topImprovements: '',
+    manualWorkToEliminate: '',
+    ifNothingChanges: '',
   },
-  requiredFeatures: {
-    selected: [],
-    customFeatures: '',
-  },
-  designPreferences: {
-    logoFiles: [],
-    brandGuidelines: [],
-    colors: ['#6F4E37'],
-    exampleWebsites: '',
-    style: [],
-  },
-  contentAvailability: {
-    logo: { checked: false, needsHelp: false, details: '' },
-    images: { checked: false, needsHelp: false, details: '' },
-    videos: { checked: false, needsHelp: false, details: '' },
-    productInfo: { checked: false, needsHelp: false, details: '' },
-    serviceInfo: { checked: false, needsHelp: false, details: '' },
-    companyProfile: { checked: false, needsHelp: false, details: '' },
-    testimonials: { checked: false, needsHelp: false, details: '' },
-    legalContent: { checked: false, needsHelp: false, details: '' },
-    additionalNotes: '',
-  },
-  technicalRequirements: {
-    domain: '',
-    domainName: '',
-    hosting: '',
-    hostingProvider: '',
-    email: '',
-    integrations: [],
-    customIntegration: '',
-  },
-  timelineBudget: {
-    launchDate: '',
+  projectQualification: {
     urgency: '',
-    budgetRange: '',
-    budgetContext: '',
+    decisionMaker: '',
+    budgetAllocated: '',
+    investmentRange: '',
+    spokenToVendor: '',
+    vendorProposal: '',
   },
-  strategicIntelligence: {
-    challenges: '',
-    manualProcesses: '',
-    automate: '',
-    growth: '',
-    bottlenecks: '',
+  additionalNotes: {
+    notes: '',
   },
 };
-
-export type FormSection = keyof FormData;

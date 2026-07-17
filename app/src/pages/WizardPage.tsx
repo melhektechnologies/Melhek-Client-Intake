@@ -4,21 +4,22 @@ import gsap from 'gsap';
 import { ProgressNav } from '@/components/wizard/ProgressNav';
 import { WizardButtons } from '@/components/wizard/WizardButtons';
 import { useFormStore } from '@/store/formStore';
-import { Step1CompanyInfo } from '@/components/sections/Step1CompanyInfo';
-import { Step2BusinessOverview } from '@/components/sections/Step2BusinessOverview';
-import { Step3ProjectType } from '@/components/sections/Step3ProjectType';
-import { Step4ProjectGoals } from '@/components/sections/Step4ProjectGoals';
-import { Step5RequiredFeatures } from '@/components/sections/Step5RequiredFeatures';
-import { Step6DesignPreferences } from '@/components/sections/Step6DesignPreferences';
-import { Step7ContentAvailability } from '@/components/sections/Step7ContentAvailability';
-import { Step8TechnicalRequirements } from '@/components/sections/Step8TechnicalRequirements';
-import { Step9TimelineBudget } from '@/components/sections/Step9TimelineBudget';
-import { Step10StrategicIntelligence } from '@/components/sections/Step10StrategicIntelligence';
+import { Step01BusinessInfo } from '@/components/sections/Step01BusinessInfo';
+import { Step02BusinessOverview } from '@/components/sections/Step02BusinessOverview';
+import { Step03CurrentWorkflow } from '@/components/sections/Step03CurrentWorkflow';
+import { Step04Inventory } from '@/components/sections/Step04Inventory';
+import { Step05CurrentSoftware } from '@/components/sections/Step05CurrentSoftware';
+import { Step06BusinessChallenges } from '@/components/sections/Step06BusinessChallenges';
+import { Step07Reporting } from '@/components/sections/Step07Reporting';
+import { Step08SecurityRoles } from '@/components/sections/Step08SecurityRoles';
+import { Step09ProjectGoals } from '@/components/sections/Step09ProjectGoals';
+import { Step10ProjectQualification } from '@/components/sections/Step10ProjectQualification';
+import { Step11AdditionalNotes } from '@/components/sections/Step11AdditionalNotes';
 
 const STEPS = [
-  Step1CompanyInfo, Step2BusinessOverview, Step3ProjectType, Step4ProjectGoals,
-  Step5RequiredFeatures, Step6DesignPreferences, Step7ContentAvailability,
-  Step8TechnicalRequirements, Step9TimelineBudget, Step10StrategicIntelligence,
+  Step01BusinessInfo, Step02BusinessOverview, Step03CurrentWorkflow, Step04Inventory,
+  Step05CurrentSoftware, Step06BusinessChallenges, Step07Reporting, Step08SecurityRoles,
+  Step09ProjectGoals, Step10ProjectQualification, Step11AdditionalNotes,
 ];
 
 export function WizardPage() {
@@ -71,7 +72,7 @@ export function WizardPage() {
     clearErrors();
     if (validateStep(step)) {
       exit('forward', () => {
-        step < 10 ? navigate(`/step/${step + 1}`) : navigate('/review');
+        step < 11 ? navigate(`/step/${step + 1}`) : navigate('/review');
       });
     } else {
       // Shake the panel
@@ -109,7 +110,7 @@ export function WizardPage() {
         }}
       />
 
-      <ProgressNav currentStep={step} />
+      <ProgressNav currentStep={step} totalSteps={11} />
 
       <main className="relative z-10 py-8 md:py-14 px-4">
         <div ref={contentRef}>
@@ -118,8 +119,8 @@ export function WizardPage() {
             <WizardButtons
               onBack={handleBack}
               onNext={handleNext}
-              nextLabel={step === 10 ? 'Review & Submit' : 'Continue'}
-              isLast={step === 10}
+              nextLabel={step === 11 ? 'Review & Submit' : 'Continue'}
+              isLast={step === 11}
             />
           </div>
         </div>

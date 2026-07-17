@@ -27,7 +27,7 @@ interface FormStore {
 
 const FormContext = createContext<FormStore | null>(null);
 
-const DRAFT_KEY = 'melhek-discovery-draft';
+const DRAFT_KEY = 'melhek-bdra-draft';
 
 export function FormProvider({ children }: { children: React.ReactNode }) {
   const [formData, setFormData] = useState<FormData>(() => {
@@ -46,7 +46,6 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
   const [isDirty, setIsDirty] = useState(false);
   const [submissionId, setSubmissionId] = useState<string | null>(null);
 
-  // Refs for debounced auto-save — holds latest formData without stale closure
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const formDataRef = useRef<FormData>(formData);
   useEffect(() => { formDataRef.current = formData; }, [formData]);
@@ -124,80 +123,46 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
 
     switch (step) {
       case 1: {
-        const ci = formData.companyInfo;
-        if (!ci.companyName.trim()) errs['companyInfo.companyName'] = 'Company name is required';
-        else if (ci.companyName.trim().length < 2) errs['companyInfo.companyName'] = 'Must be at least 2 characters';
-        if (!ci.industry) errs['companyInfo.industry'] = 'Please select an industry';
-        if (!ci.contactPerson.trim()) errs['companyInfo.contactPerson'] = 'Contact person is required';
-        if (!ci.position.trim()) errs['companyInfo.position'] = 'Position is required';
-        if (!ci.phone.trim()) errs['companyInfo.phone'] = 'Phone number is required';
-        else if (!/^[+]?[\d\s\-\(\)]{7,}$/.test(ci.phone.trim())) errs['companyInfo.phone'] = 'Please enter a valid phone number';
-        if (!ci.email.trim()) errs['companyInfo.email'] = 'Email is required';
-        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ci.email.trim())) errs['companyInfo.email'] = 'Please enter a valid email';
+        const bi = formData.businessInfo;
+        if (!bi.businessName.trim()) errs['businessInfo.businessName'] = 'Business name is required';
+        else if (bi.businessName.trim().length < 2) errs['businessInfo.businessName'] = 'Must be at least 2 characters';
+        if (!bi.industry) errs['businessInfo.industry'] = 'Please select an industry';
+        if (!bi.businessType) errs['businessInfo.businessType'] = 'Please select a business type';
+        if (!bi.contactPerson.trim()) errs['businessInfo.contactPerson'] = 'Contact person is required';
+        if (!bi.position.trim()) errs['businessInfo.position'] = 'Position is required';
+        if (!bi.phone.trim()) errs['businessInfo.phone'] = 'Phone number is required';
+        else if (!/^[+]?[\d\s\-\(\)]{7,}$/.test(bi.phone.trim())) errs['businessInfo.phone'] = 'Please enter a valid phone number';
+        if (!bi.email.trim()) errs['businessInfo.email'] = 'Email is required';
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bi.email.trim())) errs['businessInfo.email'] = 'Please enter a valid email address';
         break;
       }
       case 2: {
         const bo = formData.businessOverview;
-        if (!bo.description.trim()) errs['businessOverview.description'] = 'Business description is required';
-        else if (bo.description.trim().length < 50) errs['businessOverview.description'] = 'Please provide at least 50 characters';
-        if (!bo.productsServices.trim()) errs['businessOverview.productsServices'] = 'Products/services is required';
-        if (!bo.goals.trim()) errs['businessOverview.goals'] = 'Business goals are required';
+        if (!bo.yearsInOperation.trim()) errs['businessOverview.yearsInOperation'] = 'Years in operation is required';
+        if (!bo.productsServices.trim()) errs['businessOverview.productsServices'] = 'Please describe your main products or services';
+        else if (bo.productsServices.trim().length < 20) errs['businessOverview.productsServices'] = 'Please provide at least 20 characters';
+        if (!bo.businessGoals.trim()) errs['businessOverview.businessGoals'] = 'Business goals are required';
+        else if (bo.businessGoals.trim().length < 20) errs['businessOverview.businessGoals'] = 'Please provide at least 20 characters';
         break;
       }
-      case 3: {
-        const pt = formData.projectType;
-        if (pt.selected.length === 0) errs['projectType.selected'] = 'Please select at least one project type';
-        if (pt.selected.includes('custom-software') && !pt.otherDescription.trim()) {
-          errs['projectType.otherDescription'] = 'Please describe your custom project';
-        }
-        break;
-      }
-      case 4: {
-        const pg = formData.projectGoals;
-        if (!pg.why.trim()) errs['projectGoals.why'] = 'This field is required';
-        else if (pg.why.trim().length < 30) errs['projectGoals.why'] = 'Please provide at least 30 characters';
-        if (!pg.problem.trim()) errs['projectGoals.problem'] = 'This field is required';
-        else if (pg.problem.trim().length < 30) errs['projectGoals.problem'] = 'Please provide at least 30 characters';
-        if (!pg.success.trim()) errs['projectGoals.success'] = 'This field is required';
-        else if (pg.success.trim().length < 30) errs['projectGoals.success'] = 'Please provide at least 30 characters';
-        break;
-      }
-      case 5: {
-        const rf = formData.requiredFeatures;
-        if (rf.selected.length === 0) errs['requiredFeatures.selected'] = 'Please select at least one feature';
-        break;
-      }
-      case 6: {
-        const dp = formData.designPreferences;
-        if (dp.style.length === 0) errs['designPreferences.style'] = 'Please select at least one design style';
-        break;
-      }
-      case 8: {
-        const tr = formData.technicalRequirements;
-        if (!tr.domain) errs['technicalRequirements.domain'] = 'Please select a domain option';
-        if (!tr.hosting) errs['technicalRequirements.hosting'] = 'Please select a hosting option';
-        if (!tr.email) errs['technicalRequirements.email'] = 'Please select an email option';
-        break;
-      }
+      // Steps 3–8 and 11: qualitative / optional — no hard block
       case 9: {
-        const tb = formData.timelineBudget;
-        if (!tb.launchDate) errs['timelineBudget.launchDate'] = 'Please select a target date';
-        else {
-          const minDate = new Date();
-          minDate.setDate(minDate.getDate() + 14);
-          if (new Date(tb.launchDate) < minDate) errs['timelineBudget.launchDate'] = 'Date must be at least 2 weeks from today';
-        }
-        if (!tb.urgency) errs['timelineBudget.urgency'] = 'Please select urgency level';
-        if (!tb.budgetRange) errs['timelineBudget.budgetRange'] = 'Please select a budget range';
+        const pg = formData.projectGoals;
+        if (!pg.whyNow.trim()) errs['projectGoals.whyNow'] = 'This field is required';
+        else if (pg.whyNow.trim().length < 20) errs['projectGoals.whyNow'] = 'Please provide at least 20 characters';
+        if (!pg.successDefinition.trim()) errs['projectGoals.successDefinition'] = 'This field is required';
+        else if (pg.successDefinition.trim().length < 20) errs['projectGoals.successDefinition'] = 'Please provide at least 20 characters';
         break;
       }
       case 10: {
-        const si = formData.strategicIntelligence;
-        if (!si.challenges.trim()) errs['strategicIntelligence.challenges'] = 'This field is required';
-        else if (si.challenges.trim().length < 30) errs['strategicIntelligence.challenges'] = 'Please provide at least 30 characters';
-        if (!si.automate.trim()) errs['strategicIntelligence.automate'] = 'This field is required';
+        const pq = formData.projectQualification;
+        if (!pq.urgency) errs['projectQualification.urgency'] = 'Please select project urgency';
+        if (!pq.decisionMaker) errs['projectQualification.decisionMaker'] = 'Please indicate the decision maker';
+        if (!pq.budgetAllocated) errs['projectQualification.budgetAllocated'] = 'Please select a budget status';
         break;
       }
+      default:
+        break;
     }
 
     setErrors(errs);
@@ -209,7 +174,6 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
     return errors;
   }, [validateStep, errors]);
 
-  // Public saveDraft — always reads latest from ref
   const saveDraft = useCallback(() => {
     persistDraft(formDataRef.current);
   }, [persistDraft]);
@@ -231,7 +195,6 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
     return localStorage.getItem(DRAFT_KEY) !== null;
   }, []);
 
-  // Flush on unmount
   useEffect(() => {
     return () => {
       if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);

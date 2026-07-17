@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Environment variables — keep your secrets out of git!
+.env
+.env.local
+.env.production

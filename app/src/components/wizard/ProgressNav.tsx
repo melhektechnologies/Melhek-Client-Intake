@@ -4,9 +4,9 @@ import { useFormStore } from '@/store/formStore';
 import { useEffect, useState } from 'react';
 
 const STEP_LABELS = [
-  'Company', 'Business', 'Project', 'Goals',
-  'Features', 'Design', 'Content', 'Technical',
-  'Timeline', 'Strategy'
+  'Business', 'Overview', 'Workflow', 'Inventory',
+  'Software', 'Challenges', 'Reporting', 'Security',
+  'Goals', 'Qualification', 'Notes'
 ];
 
 interface ProgressNavProps {
@@ -14,7 +14,7 @@ interface ProgressNavProps {
   totalSteps?: number;
 }
 
-export function ProgressNav({ currentStep, totalSteps = 10 }: ProgressNavProps) {
+export function ProgressNav({ currentStep, totalSteps = 11 }: ProgressNavProps) {
   const { saveDraft, lastSaved, isDirty } = useFormStore();
   const navigate = useNavigate();
   const [showSaved, setShowSaved] = useState(false);

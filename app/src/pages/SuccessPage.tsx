@@ -6,7 +6,7 @@ import gsap from 'gsap';
 export function SuccessPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const id = params.get('id') || 'MT-2025-XXXXX';
+  const id = params.get('id') || 'MT-2026-XXXXX';
   const svgPath = useRef<SVGPathElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const confettiRef = useRef<HTMLDivElement>(null);
@@ -79,8 +79,15 @@ export function SuccessPage() {
   // Entrance sequence
   useEffect(() => {
     const tl = gsap.timeline({ delay: 1.3 });
-    tl.from('[data-success]', { opacity: 0, y: 20, stagger: 0.12, duration: 0.55, ease: 'power2.out' });
-    tl.from('[data-timeline]', { opacity: 0, x: -16, stagger: 0.1, duration: 0.45, ease: 'power2.out' }, '-=0.2');
+    tl.fromTo('[data-success]', 
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, stagger: 0.12, duration: 0.55, ease: 'power2.out' }
+    );
+    tl.fromTo('[data-timeline]', 
+      { opacity: 0, x: -16 },
+      { opacity: 1, x: 0, stagger: 0.1, duration: 0.45, ease: 'power2.out' }, 
+      '-=0.2'
+    );
   }, []);
 
   const handleCopy = () => {
@@ -91,7 +98,7 @@ export function SuccessPage() {
   };
 
   const handleRestart = () => {
-    localStorage.removeItem('melhek-discovery-draft');
+    localStorage.removeItem('melhek-bdra-draft');
     navigate('/');
   };
 
@@ -150,7 +157,7 @@ export function SuccessPage() {
           fontFamily: 'var(--font-display)', fontSize: 'clamp(32px,6vw,54px)',
           fontWeight: 800, color: 'var(--ice)', letterSpacing: '-0.03em', lineHeight: 1.1,
         }}>
-          Brief{' '}
+          Discovery{' '}
           <span style={{
             background: 'linear-gradient(135deg, var(--success) 0%, #7fffd4 100%)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
@@ -160,10 +167,9 @@ export function SuccessPage() {
         </h1>
 
         <p data-success style={{
-          fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.7, marginTop: 14, maxWidth: 420, margin: '14px auto 0',
+          fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.7, marginTop: 14, maxWidth: 460, margin: '14px auto 0',
         }}>
-          Your project brief has been received by our engineering intelligence system.
-          Expect first contact within <strong style={{ color: 'var(--text-primary)' }}>24 hours</strong>.
+          Thank you for completing the Business Discovery Form. Our team will carefully review your responses.
         </p>
 
         {/* ID Card */}
@@ -207,14 +213,14 @@ export function SuccessPage() {
           }}
         >
           <p style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 700, color: 'var(--ice)', marginBottom: 20 }}>
-            What Happens Next
+            Next Steps in Our Engagement
           </p>
           <div className="space-y-5 relative" style={{ paddingLeft: 40 }}>
             <div style={{ position: 'absolute', left: 14, top: 6, bottom: 20, width: 1, background: 'var(--border)' }} />
             {[
-              { n: 1, t: 'Engineering Review', d: 'Our architects analyse your technical requirements and feasibility.' },
-              { n: 2, t: 'Strategy Session', d: 'We schedule an intensive discovery call to finalise scope and approach.' },
-              { n: 3, t: 'Project Proposal', d: 'You receive a comprehensive roadmap, timeline, and investment structure.' },
+              { n: 1, t: 'Discovery Review & Analysis', d: 'Our consulting architects perform a detailed assessment of your current workflows and system gaps.' },
+              { n: 2, t: 'On-site Discovery Meeting', d: 'We schedule an in-depth alignment session to analyze your physical workflows, cache points, and verify needs.' },
+              { n: 3, t: 'Tailored Proposal Delivery', d: 'You receive a complete solution blueprint including implementation phases, timelines, investment parameters, and support structures.' },
             ].map((item) => (
               <div key={item.n} data-timeline className="flex gap-4 items-start relative">
                 <div
@@ -247,11 +253,15 @@ export function SuccessPage() {
             <ArrowRight size={18} />
           </button>
           <button onClick={handleRestart} className="btn-secondary flex-1 py-4">
-            Start New Project
+            Start New Assessment
           </button>
         </div>
 
-        <div data-success className="flex items-center justify-center gap-2 mt-8"
+        <div data-success style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 24, fontStyle: 'italic' }}>
+          Thank you for choosing Melhek Technologies. Your Digital Anchor.
+        </div>
+
+        <div data-success className="flex items-center justify-center gap-2 mt-4"
           style={{ fontSize: 13, color: 'var(--text-muted)' }}>
           <Mail size={14} style={{ color: 'var(--electric-dim)' }} />
           Direct:{' '}
